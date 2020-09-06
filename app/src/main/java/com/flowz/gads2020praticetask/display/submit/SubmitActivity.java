@@ -1,4 +1,4 @@
-package com.flowz.gads2020praticetask.display;
+package com.flowz.gads2020praticetask.display.submit;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
@@ -105,30 +105,6 @@ public class SubmitActivity extends AppCompatActivity {
 
 
     }
-
-//    public void showSuccess(){
-//
-//
-//        LayoutInflater inflater = LayoutInflater.from(SubmitActivity.this);
-//        View alertView = inflater.inflate(R.layout.alert_dialog, null);
-//
-//        Button yesButton = alertView.findViewById(R.id.yes);
-//        ImageView closeDialog = alertView.findViewById(R.id.image_close);
-//        TextView sure = alertView.findViewById(R.id.sure);
-//
-//        yesButton.setVisibility(View.INVISIBLE);
-//        closeDialog.setVisibility(View.INVISIBLE);
-//        sure.setVisibility(View.INVISIBLE);
-//        alertView.setBackground(getResources().getDrawable(R.drawable.succesicon));
-//
-//        dialog.setView(alertView);
-////                    dialog.setCancelable(false);
-//
-//        AlertDialog alertDialog = dialog.create();
-//
-//        alertDialog.show();
-//
-//    }
 
     public void showStatus(Drawable statusIndicator){
 

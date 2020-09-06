@@ -1,4 +1,4 @@
-package com.flowz.gads2020praticetask.display;
+package com.flowz.gads2020praticetask.display.leaderboard;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.flowz.gads2020praticetask.R;
 import com.flowz.gads2020praticetask.adapters.PagerAdapter;
+import com.flowz.gads2020praticetask.display.submit.SubmitActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 

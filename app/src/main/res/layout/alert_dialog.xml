@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    tools:context=".display.LeaderBoardActivity">
+    tools:context=".display.leaderboard.LeaderBoardActivity">
 
     <!--    <TextView-->
     <!--        android:id="@+id/textView3"-->
