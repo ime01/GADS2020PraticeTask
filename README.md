@@ -1,5 +1,14 @@
 # GADS2020PraticeTask
-GooglePluralsightAndela 2020GADS Pratice task.An app that fetches data to show the top 20 learners SkillIQscore and the top 20 Learners who have the highest hours of video content consumption.Also uses a Post Request to GoogleDocs for Submission
+GooglePluralsightAndela 2020GADS Pratice task.An app that fetches data to show the top 20 learners SkillIQscore and the top 20 Learners who have the highest hours of video content consumption.Also uses a Post Request to GoogleDocs for Submission.
+
+App utilizes the MVVM architecture,
+Retrofit
+ViewPager2
+Tablayout
+Materail Design
+RecyclerView and CardView
+ViewModel and LiveData
+
 
 ![Screenshot_2020-09-06-09-43-17](https://user-images.githubusercontent.com/44091450/92322072-f11c4d80-efe3-11ea-82c4-67362f6d375b.png)
 
