@@ -2,11 +2,11 @@
 GooglePluralsightAndela 2020GADS Pratice task.An app that fetches data to show the top 20 learners SkillIQscore and the top 20 Learners who have the highest hours of video content consumption. Also makes a Post Request to GoogleDocs for Submission.
 
 App utilizes the MVVM architecture,
-Retrofit
-ViewPager2
-Tablayout
-Materail Design
-RecyclerView and CardView
+Retrofit,
+ViewPager2,
+Tablayout,
+Materail Design,
+RecyclerView and CardView,
 ViewModel and LiveData
 
 
