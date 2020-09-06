@@ -1,7 +1,7 @@
 package com.flowz.gads2020praticetask.adapters;
 
-import com.flowz.gads2020praticetask.display.HoursFragment;
-import com.flowz.gads2020praticetask.display.SkillsIQFragment;
+import com.flowz.gads2020praticetask.display.leaderboard.hoursfragment.HoursFragment;
+import com.flowz.gads2020praticetask.display.leaderboard.skillsIqfragment.SkillsIQFragment;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -28,4 +28,5 @@ public class PagerAdapter extends FragmentStateAdapter {
     public int getItemCount() {
         return 2;
     }
+
 }

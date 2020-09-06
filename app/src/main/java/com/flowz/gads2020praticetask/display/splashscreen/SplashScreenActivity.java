@@ -1,4 +1,4 @@
-package com.flowz.gads2020praticetask.display;
+package com.flowz.gads2020praticetask.display.splashscreen;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.flowz.gads2020praticetask.R;
+import com.flowz.gads2020praticetask.display.leaderboard.LeaderBoardActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
 

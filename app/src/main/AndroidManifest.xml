@@ -11,15 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".display.LeaderBoardActivity"></activity>
-        <activity android:name=".display.SubmitActivity"
-            android:parentActivityName=".display.LeaderBoardActivity">
+        <activity android:name=".display.leaderboard.LeaderBoardActivity"></activity>
+        <activity android:name=".display.submit.SubmitActivity"
+            android:parentActivityName=".display.leaderboard.LeaderBoardActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".display.LeaderBoardActivity" />
+                android:value=".display.leaderboard.LeaderBoardActivity" />
         </activity>
 
-        <activity android:name=".display.SplashScreenActivity">
+        <activity android:name=".display.splashscreen.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
