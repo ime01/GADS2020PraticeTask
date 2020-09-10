@@ -12,8 +12,8 @@ import retrofit2.http.GET;
 public interface ApiInterface {
 
     @GET("api/skilliq")
-    Call<ArrayList<SkilliqModel>> getSkillIq();
+    Call<List<SkilliqModel>> getSkillIq();
 
     @GET("api/hours")
-    Call<ArrayList<HoursModel>> getHours();
+    Call<List<HoursModel>> getHours();
 }

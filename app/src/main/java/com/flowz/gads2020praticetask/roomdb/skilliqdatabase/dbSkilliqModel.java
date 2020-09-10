@@ -1,10 +1,10 @@
-package com.flowz.gads2020praticetask.models;
+package com.flowz.gads2020praticetask.roomdb.skilliqdatabase;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "skilliq_table" )
-public class SkilliqModel {
+public class dbSkilliqModel {
 
     public String name;
     public Integer score;
@@ -53,7 +53,7 @@ public class SkilliqModel {
         this.badgeUrl = badgeUrl;
     }
 
-    public SkilliqModel(String name, Integer score, String country, String badgeUrl) {
+    public dbSkilliqModel(String name, Integer score, String country, String badgeUrl) {
         this.name = name;
         this.score = score;
         this.country = country;

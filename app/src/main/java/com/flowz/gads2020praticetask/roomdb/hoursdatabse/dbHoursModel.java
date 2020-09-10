@@ -1,17 +1,25 @@
-package com.flowz.gads2020praticetask.models;
+package com.flowz.gads2020praticetask.roomdb.hoursdatabse;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "skilliq_table" )
-public class SkilliqModel {
+@Entity(tableName = "hours_table" )
+public class dbHoursModel {
 
     public String name;
-    public Integer score;
+    public Integer hours;
     public String country;
     public String badgeUrl;
     @PrimaryKey(autoGenerate = true)
     private int id;
+
+    public Integer getHours() {
+        return hours;
+    }
+
+    public void setHours(Integer hours) {
+        this.hours = hours;
+    }
 
     public int getId() {
         return id;
@@ -29,13 +37,6 @@ public class SkilliqModel {
         this.name = name;
     }
 
-    public Integer getScore() {
-        return score;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
-    }
 
     public String getCountry() {
         return country;
@@ -53,9 +54,9 @@ public class SkilliqModel {
         this.badgeUrl = badgeUrl;
     }
 
-    public SkilliqModel(String name, Integer score, String country, String badgeUrl) {
+    public dbHoursModel(String name, Integer hours, String country, String badgeUrl) {
         this.name = name;
-        this.score = score;
+        this.hours = hours;
         this.country = country;
         this.badgeUrl = badgeUrl;
     }

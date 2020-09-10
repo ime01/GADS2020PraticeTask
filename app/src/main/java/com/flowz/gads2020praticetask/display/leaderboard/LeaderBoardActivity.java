@@ -7,18 +7,21 @@ import androidx.navigation.ActivityNavigator;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.flowz.gads2020praticetask.R;
 import com.flowz.gads2020praticetask.adapters.PagerAdapter;
 import com.flowz.gads2020praticetask.display.submit.SubmitActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import static androidx.navigation.ui.NavigationUI.setupActionBarWithNavController;
 
@@ -31,6 +34,7 @@ public class LeaderBoardActivity extends AppCompatActivity {
     TextView loading;
     ProgressBar progressBar;
     RecyclerView recyclerView;
+    Application application;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -34,18 +34,44 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
+//    LifeCycle
     implementation "android.arch.lifecycle:extensions:1.0.0"
     annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
+
+//    Navigation
     implementation 'androidx.navigation:navigation-fragment:2.0.0'
     implementation 'androidx.navigation:navigation-ui:2.0.0'
+
+//    Material Design
     implementation "com.google.android.material:material:1.2.0-alpha02"
+
+//    Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
+
+//    RoundImage
     implementation 'com.makeramen:roundedimageview:2.3.0'
+
+//    ImageLoader
     implementation 'com.github.bumptech.glide:glide:4.8.0'
+
+//    ViewPager
     implementation "androidx.viewpager2:viewpager2:1.0.0"
+
+//    RecylerViewAnimator
     implementation 'jp.wasabeef:recyclerview-animators:3.0.0'
+
+//    NetworkInterceptor
     implementation "com.squareup.okhttp3:logging-interceptor:4.8.1"
+
+//    RoomDatabase
+    def room_version = "2.2.5"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
+//    /    Better dateTime-time support even on older android versions
+    implementation "com.jakewharton.threetenabp:threetenabp:1.0.3"
+
 
 
 

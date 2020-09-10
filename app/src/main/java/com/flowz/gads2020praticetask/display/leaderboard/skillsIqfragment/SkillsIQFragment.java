@@ -1,16 +1,21 @@
 package com.flowz.gads2020praticetask.display.leaderboard.skillsIqfragment;
 
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,12 +23,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.flowz.gads2020praticetask.R;
 import com.flowz.gads2020praticetask.adapters.SkillIqAdapter;
 import com.flowz.gads2020praticetask.models.SkilliqModel;
+import com.flowz.gads2020praticetask.network.get.ApiClient;
+import com.flowz.gads2020praticetask.network.get.ApiInterface;
+import com.flowz.gads2020praticetask.roomdb.skilliqdatabase.dbSkilliqModel;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +44,7 @@ public class SkillsIQFragment extends Fragment {
     ProgressBar progressBar;
     RecyclerView recyclerView;
     SkillIqViewModel skillIqViewModel;
+    List<dbSkilliqModel>  learnersList;
 
 
     public SkillsIQFragment() {
@@ -51,30 +61,108 @@ public class SkillsIQFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler);
 
 
-        skillIqViewModel = ViewModelProviders.of(getActivity()).get(SkillIqViewModel.class);
+        getCurrentStudentHoursDetails();
+//        fetchDataFromNetwork();
 
-//        getDatafromApi();
+        skillIqViewModel = ViewModelProviders.of(this).get(SkillIqViewModel.class);
 
-        LiveData<ArrayList<SkilliqModel>>  learnersList = skillIqViewModel.getDatafromApi();
-
-
-        learnersList.observe(getViewLifecycleOwner(), new Observer<ArrayList<SkilliqModel>>() {
+//        LiveData<ArrayList<SkilliqModel>>  learnersList = skillIqViewModel.getDatafromApi();
+        skillIqViewModel.getAllSkillsIq().observe(this, new Observer<List<dbSkilliqModel>>() {
             @Override
-            public void onChanged(ArrayList<SkilliqModel> skilliqModels) {
+            public void onChanged(List<dbSkilliqModel> dbSkilliqModels) {
 
-                loadFetchedData(skilliqModels);
+                learnersList = dbSkilliqModels;
+                loadFetchedData(learnersList);
             }
         });
 
+//        learnersList.observe(getViewLifecycleOwner(), new Observer<ArrayList<SkilliqModel>>() {
+//            @Override
+//            public void onChanged(ArrayList<SkilliqModel> skilliqModels) {
+//
+//                loadFetchedData(skilliqModels);
+//            }
+//        });
+//
         return view;
+}
 
+    private void getCurrentStudentHoursDetails(){
 
+//        if (isFetchCurrentNeeded(ZonedDateTime.now().minusHours(1))){
 
+        if (isNetworkAvailable()){
+            fetchDataFromNetwork();
+
+        }else {
+            Toast.makeText(getActivity(), "No Network, Enable Internet Connection And Try Again", Toast.LENGTH_LONG).show();
+        }
+
+//        }else {
+//            Toast.makeText(getActivity(), "Details Will be Updated when its 30 minutes more than the last time it was updated", Toast.LENGTH_LONG).show();
+//        }
+
+    }
+
+    private Boolean isNetworkAvailable(){
+
+        ConnectivityManager connectivityManager = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+
+        return activeNetworkInfo!= null && activeNetworkInfo.isConnected();
+
+    }
+
+private void fetchDataFromNetwork(){
+
+        progressBar.setVisibility(View.VISIBLE);
+
+    ApiInterface retrofitInterface = ApiClient.getApiClient().create(ApiInterface.class);
+
+    Call<List<SkilliqModel>> getSkills = retrofitInterface.getSkillIq();
+
+   getSkills.enqueue(new Callback<List<SkilliqModel>>() {
+       @Override
+       public void onResponse(Call<List<SkilliqModel>> call, Response<List<SkilliqModel>> response) {
+
+           if(response.isSuccessful()){
+               if (response != null){
+
+                   List<SkilliqModel> dbSkilliqModelsList = response.body();
+
+                   for (int i = 0; i< dbSkilliqModelsList.size(); i++){
+
+                       String name = dbSkilliqModelsList.get(i).getName();
+                       int score = dbSkilliqModelsList.get(i).getScore();
+                       String country = dbSkilliqModelsList.get(i).getCountry();
+                       String badgeUrl = dbSkilliqModelsList.get(i).getBadgeUrl();
+
+//                       Assign the networkResults to RoomDataBase Object
+
+                       dbSkilliqModel mydbSkilliqModel = new dbSkilliqModel(name,score,country,badgeUrl);
+
+                       skillIqViewModel.insert(mydbSkilliqModel);
+
+                       progressBar.setVisibility(View.GONE);
+
+                   }
+
+               }
+           }
+       }
+
+       @Override
+       public void onFailure(Call<List<SkilliqModel>> call, Throwable t) {
+
+          netWorkFailedToast();
+
+       }
+   });
 
 }
 
 
-    private void loadFetchedData(ArrayList<SkilliqModel> fetchedList){
+    private void loadFetchedData(List<dbSkilliqModel> fetchedList){
 
         SkillIqAdapter adapter = new SkillIqAdapter(fetchedList, this.getContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
@@ -88,6 +176,12 @@ public class SkillsIQFragment extends Fragment {
         progressBar.setVisibility(View.GONE);
         loading.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
+
+    }
+
+    private void netWorkFailedToast(){
+
+        Toast.makeText(getActivity(), "SkillIQ network request failed", Toast.LENGTH_LONG).show();
 
     }
 
