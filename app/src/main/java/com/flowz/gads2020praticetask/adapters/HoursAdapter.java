@@ -9,21 +9,20 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.flowz.gads2020praticetask.R;
-import com.flowz.gads2020praticetask.models.HoursModel;
-import com.flowz.gads2020praticetask.models.SkilliqModel;
+import com.flowz.gads2020praticetask.roomdb.hoursdatabse.dbHoursModel;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class HoursAdapter extends RecyclerView.Adapter<HoursAdapter.HoursViewHolder> {
 
-    ArrayList<HoursModel> hoursList;
+    List<dbHoursModel> hoursList;
     Context context;
 
 
-    public HoursAdapter(ArrayList<HoursModel> hoursList, Context context) {
+    public HoursAdapter(List<dbHoursModel> hoursList, Context context) {
         this.hoursList = hoursList;
         this.context = context;
     }

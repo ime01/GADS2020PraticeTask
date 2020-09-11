@@ -9,19 +9,20 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.flowz.gads2020praticetask.R;
-import com.flowz.gads2020praticetask.models.SkilliqModel;
+import com.flowz.gads2020praticetask.roomdb.skilliqdatabase.dbSkilliqModel;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class SkillIqAdapter extends RecyclerView.Adapter<SkillIqAdapter.SkillsViewHolder> {
 
-    ArrayList<SkilliqModel> iqScores;
+//    ArrayList<SkilliqModel> iqScores;
+    List<dbSkilliqModel> iqScores;
     Context context;
 
-    public SkillIqAdapter(ArrayList<SkilliqModel> iqScores, Context context) {
+    public SkillIqAdapter(List<dbSkilliqModel> iqScores, Context context) {
         this.iqScores = iqScores;
         this.context = context;
     }
