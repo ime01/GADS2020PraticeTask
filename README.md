@@ -7,7 +7,8 @@ ViewPager2,
 Tablayout,
 Materail Design,
 RecyclerView and CardView,
-ViewModel and LiveData
+ViewModel and LiveData, 
+Room DataBase for caching network request data for offline use.
 
 
 ![Screenshot_2020-09-06-09-43-17](https://user-images.githubusercontent.com/44091450/92322072-f11c4d80-efe3-11ea-82c4-67362f6d375b.png)
