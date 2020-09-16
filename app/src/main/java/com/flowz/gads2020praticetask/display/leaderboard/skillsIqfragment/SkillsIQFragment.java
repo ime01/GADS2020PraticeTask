@@ -32,6 +32,8 @@ import com.flowz.gads2020praticetask.network.get.ApiClient;
 import com.flowz.gads2020praticetask.network.get.ApiInterface;
 import com.flowz.gads2020praticetask.roomdb.skilliqdatabase.dbSkilliqModel;
 
+import org.threeten.bp.ZonedDateTime;
+
 import java.util.List;
 
 /**
@@ -60,11 +62,12 @@ public class SkillsIQFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
         recyclerView = view.findViewById(R.id.recycler);
 
+        skillIqViewModel = ViewModelProviders.of(this).get(SkillIqViewModel.class);
+
 
         getCurrentStudentHoursDetails();
 //        fetchDataFromNetwork();
 
-        skillIqViewModel = ViewModelProviders.of(this).get(SkillIqViewModel.class);
 
 //        LiveData<ArrayList<SkilliqModel>>  learnersList = skillIqViewModel.getDatafromApi();
         skillIqViewModel.getAllSkillsIq().observe(this, new Observer<List<dbSkilliqModel>>() {
@@ -89,18 +92,27 @@ public class SkillsIQFragment extends Fragment {
 
     private void getCurrentStudentHoursDetails(){
 
-//        if (isFetchCurrentNeeded(ZonedDateTime.now().minusHours(1))){
+        if (isFetchCurrentNeeded(ZonedDateTime.now().minusHours(1))){
 
         if (isNetworkAvailable()){
-            fetchDataFromNetwork();
+//            fetchDataFromNetwork();
+           skillIqViewModel.fetchDataFromNetwork();
+            Toast.makeText(getActivity(), "Data Updated from network", Toast.LENGTH_SHORT).show();
 
         }else {
             Toast.makeText(getActivity(), "No Network, Enable Internet Connection And Try Again", Toast.LENGTH_LONG).show();
         }
 
-//        }else {
-//            Toast.makeText(getActivity(), "Details Will be Updated when its 30 minutes more than the last time it was updated", Toast.LENGTH_LONG).show();
-//        }
+        }else {
+            Toast.makeText(getActivity(), "Details Will be Updated when its 30 minutes more than the last GadsApplication it was updated", Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    private Boolean isFetchCurrentNeeded(ZonedDateTime lastFetchTime){
+
+        ZonedDateTime thirtyMinutesAgo = ZonedDateTime.now().minusMinutes(30);
+        return lastFetchTime.isBefore(thirtyMinutesAgo);
 
     }
 
@@ -113,53 +125,7 @@ public class SkillsIQFragment extends Fragment {
 
     }
 
-private void fetchDataFromNetwork(){
 
-        progressBar.setVisibility(View.VISIBLE);
-
-    ApiInterface retrofitInterface = ApiClient.getApiClient().create(ApiInterface.class);
-
-    Call<List<SkilliqModel>> getSkills = retrofitInterface.getSkillIq();
-
-   getSkills.enqueue(new Callback<List<SkilliqModel>>() {
-       @Override
-       public void onResponse(Call<List<SkilliqModel>> call, Response<List<SkilliqModel>> response) {
-
-           if(response.isSuccessful()){
-               if (response != null){
-
-                   List<SkilliqModel> dbSkilliqModelsList = response.body();
-
-                   for (int i = 0; i< dbSkilliqModelsList.size(); i++){
-
-                       String name = dbSkilliqModelsList.get(i).getName();
-                       int score = dbSkilliqModelsList.get(i).getScore();
-                       String country = dbSkilliqModelsList.get(i).getCountry();
-                       String badgeUrl = dbSkilliqModelsList.get(i).getBadgeUrl();
-
-//                       Assign the networkResults to RoomDataBase Object
-
-                       dbSkilliqModel mydbSkilliqModel = new dbSkilliqModel(name,score,country,badgeUrl);
-
-                       skillIqViewModel.insert(mydbSkilliqModel);
-
-                       progressBar.setVisibility(View.GONE);
-
-                   }
-
-               }
-           }
-       }
-
-       @Override
-       public void onFailure(Call<List<SkilliqModel>> call, Throwable t) {
-
-          netWorkFailedToast();
-
-       }
-   });
-
-}
 
 
     private void loadFetchedData(List<dbSkilliqModel> fetchedList){

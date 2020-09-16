@@ -69,7 +69,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
-//    /    Better dateTime-time support even on older android versions
+//    /    Better dateTime-GadsApplication support even on older android versions
     implementation "com.jakewharton.threetenabp:threetenabp:1.0.3"
 
 

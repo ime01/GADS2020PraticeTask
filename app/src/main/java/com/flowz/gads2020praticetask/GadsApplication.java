@@ -1,10 +1,10 @@
-package com.flowz.gads2020praticetask.timeinit;
+package com.flowz.gads2020praticetask;
 
 import android.app.Application;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
-public class time extends Application {
+public class GadsApplication extends Application {
 
         @Override public void onCreate() {
             super.onCreate();
