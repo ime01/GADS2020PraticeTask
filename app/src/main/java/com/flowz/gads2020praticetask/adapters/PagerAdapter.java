@@ -18,10 +18,11 @@ public class PagerAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         if (position == 0) {
-            return new SkillsIQFragment();
+            return new HoursFragment();
+
 //            case 1:
         }
-        return new HoursFragment();
+        return new SkillsIQFragment();
     }
 
     @Override

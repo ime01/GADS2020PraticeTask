@@ -95,18 +95,21 @@ public class HoursFragment extends Fragment {
 
     private void getCurrentStudentHoursDetails(){
 
-//        if (isFetchCurrentNeeded(ZonedDateTime.now().minusHours(1))){
+        if (isFetchCurrentNeeded(ZonedDateTime.now().minusHours(1))){
 
             if (isNetworkAvailable()){
-                fetchDataFromNetwork();
+
+//                fetchDataFromNetwork();
+                hoursViewModel.fetchDataFromNetwork();
+                Toast.makeText(getActivity(), "Data Updated from network", Toast.LENGTH_SHORT).show();
 
             }else {
                 Toast.makeText(getActivity(), "No Network, Enable Internet Connection And Try Again", Toast.LENGTH_LONG).show();
             }
 
-//        }else {
-//            Toast.makeText(getActivity(), "Details Will be Updated when its 30 minutes more than the last time it was updated", Toast.LENGTH_LONG).show();
-//        }
+        }else {
+            Toast.makeText(getActivity(), "Details Will be Updated when its 30 minutes more than the last GadsApplication it was updated", Toast.LENGTH_LONG).show();
+        }
 
     }
 
@@ -119,70 +122,12 @@ public class HoursFragment extends Fragment {
 
     }
 
-//    public Instant now() {
-//        return Instant.now();
-//    }
-//
-//    public ZonedDateTime hereAndNow() {
-//        return ZonedDateTime.ofInstant(now(), ZoneId.systemDefault());
-//    }
 
 
     private Boolean isFetchCurrentNeeded(ZonedDateTime lastFetchTime){
 
         ZonedDateTime thirtyMinutesAgo = ZonedDateTime.now().minusMinutes(30);
         return lastFetchTime.isBefore(thirtyMinutesAgo);
-
-    }
-
-
-    private void fetchDataFromNetwork(){
-
-        progressBar.setVisibility(View.VISIBLE);
-
-        ApiInterface retrofitInterface = ApiClient.getApiClient().create(ApiInterface.class);
-
-        Call<List<HoursModel>> getHours = retrofitInterface.getHours();
-
-
-      getHours.enqueue(new Callback<List<HoursModel>>() {
-          @Override
-          public void onResponse(Call<List<HoursModel>> call, Response<List<HoursModel>> response) {
-
-              if(response.isSuccessful()){
-                  if (response != null){
-
-                      List<HoursModel> dbHoursList = response.body();
-
-                      for (int i = 0; i< dbHoursList.size(); i++){
-
-                          String name = dbHoursList.get(i).getName();
-                          int hours = dbHoursList.get(i).getHours();
-                          String country = dbHoursList.get(i).getCountry();
-                          String badgeUrl = dbHoursList.get(i).getBadgeUrl();
-
-//                       Assign the networkResults to RoomDataBase Object
-
-                          dbHoursModel mydbHoursModel = new dbHoursModel(name,hours,country,badgeUrl);
-
-                          hoursViewModel.insert(mydbHoursModel);
-
-                          progressBar.setVisibility(View.GONE);
-
-                      }
-
-                  }
-              }
-
-          }
-
-          @Override
-          public void onFailure(Call<List<HoursModel>> call, Throwable t) {
-
-              netWorkFailedToast();
-              Log.d("My tag", "Hours Network Request Failed " + t);
-          }
-      });
 
     }
 
